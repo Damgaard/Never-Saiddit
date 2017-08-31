@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Currently destroying your reddit account!!</h2>
+
+<br>
+<p class="text-muted">Asking you to authorize us<p>
+<p>You grant us access on Reddit<p>
+<p>Validating that we got good data<p>
+<p>Deleting your content<p>
+<p>Finishing up<p>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+  setInterval(function(){
+      $.ajax({ url: "server", success: function(data){
+          //Update your dashboard gauge
+          salesGauge.setValue(data.value);
+      }, dataType: "json"});
+  }, 30000);
+});
+</script>
+{% endblock %}

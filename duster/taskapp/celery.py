@@ -1,4 +1,3 @@
-
 import os
 from celery import Celery
 from django.apps import apps, AppConfig
@@ -13,6 +12,7 @@ if not settings.configured:
 app = Celery('duster')
 
 
+
 class CeleryConfig(AppConfig):
     name = 'duster.taskapp'
     verbose_name = 'Celery Config'
@@ -23,10 +23,6 @@ class CeleryConfig(AppConfig):
         app.config_from_object('django.conf:settings')
         installed_apps = [app_config.name for app_config in apps.get_app_configs()]
         app.autodiscover_tasks(lambda: installed_apps, force=True)
-
-        
-
-        
 
 
 @app.task(bind=True)

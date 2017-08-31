@@ -55,7 +55,9 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
     'duster.users.apps.UsersConfig',
-    # Your stuff: custom apps go here
+
+    'duster.core.apps.CoreConfig',
+    'duster.reddit.apps.RedditConfig',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
