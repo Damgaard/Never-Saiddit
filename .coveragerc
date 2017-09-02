@@ -1,5 +1,9 @@
 [run]
 include = duster/*
-omit = *migrations*, *tests*, *.html
+omit =
+    *migrations*
+    *tests*
+    *.html
+    *management/*__init__.py
 plugins =
     django_coverage_plugin
