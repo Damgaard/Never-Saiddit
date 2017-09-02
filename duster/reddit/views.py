@@ -88,4 +88,4 @@ class OAuthCallbackRedirectView(RedirectView):
         job.code = self.request.GET['code']
         job.save()
 
-        return reverse('destruction')
+        return reverse('core:destruction', kwargs={'identifier': str(job.identifier)})

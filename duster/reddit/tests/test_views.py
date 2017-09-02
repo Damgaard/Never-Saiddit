@@ -76,10 +76,10 @@ class TestOAuthCallbackRedirectView(TestCase):
 
     def test_succesful_redirect(self):
         response = self.get('reddit:oauth_callback', data=self.data)
-        self.assertRedirects(response, reverse('destruction'))
+        self.assertRedirects(response, reverse('core:destruction', kwargs={'identifier': str(self.job.identifier)}))
 
     def test_succesful_updates_state(self):
         response = self.get('reddit:oauth_callback', data=self.data)
-        self.assertRedirects(response, reverse('destruction'))
+        self.assertRedirects(response, reverse('core:destruction', kwargs={'identifier': str(self.job.identifier)}))
         reloaded_job = Job.objects.get(identifier=self.job.identifier)
         self.assertEqual(reloaded_job.state, Job.STATE_RECEIVED_CODE_AND_STATE)

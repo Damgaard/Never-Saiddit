@@ -10,9 +10,6 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
-    # Main page
-    url(r'^destruction/$', TemplateView.as_view(template_name='pages/destruction.html'), name='destruction'),
-
     # Error pages
     url(r'^denied/$', TemplateView.as_view(template_name='pages/denied.html'), name='denied'),
     url(r'^error/$', TemplateView.as_view(template_name='pages/error.html'), name='error'),
