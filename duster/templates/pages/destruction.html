@@ -4,11 +4,21 @@
 <h2>Currently destroying your reddit account!!</h2>
 
 <br>
+<p>Hope this is what you wanted :)</p>
+
+<br>
+<h3>Progress</h3>
 <p class="text-muted">Asking you to authorize us<p>
-<p>You grant us access on Reddit<p>
-<p>Validating that we got good data<p>
-<p>Deleting your content<p>
-<p>Finishing up<p>
+<p {% if object.state > 20 %}class="text-muted"{% endif %}>You grant us access on Reddit<p>
+<p {% if object.state > 30 %}class="text-muted"{% endif %}>Validating that we got good data<p>
+<p{% if object.state > 40 %}class="text-muted"{% endif %}>Deleting your content<p>
+<p>Showing you data<p>
+
+<h3>Actions</h3>
+
+<p>Deleted {{ job.comments_deleted }} comments so far.</p>
+<p>Deleted {{ job.submissions_deleted }} ports so far.</p>
+
 {% endblock %}
 
 {% block extra_js %}
