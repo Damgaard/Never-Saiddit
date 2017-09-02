@@ -34,8 +34,10 @@ flake8==3.4.1
 idna==2.6                 # via email-validator, requests
 kombu==3.0.37             # via celery
 mccabe==0.6.1             # via flake8
+mock==2.0.0
 oauthlib==2.0.2           # via requests-oauthlib
 olefile==0.44             # via pillow
+pbr==3.1.1                # via mock
 pillow==4.2.1
 psycopg2==2.7.3.1
 py==1.4.34                # via pytest
@@ -54,7 +56,7 @@ regex==2017.7.28          # via awesome-slugify
 requests-oauthlib==0.8.0  # via django-allauth
 requests==2.18.4          # via django-allauth, requests-oauthlib
 rjsmin==1.0.12            # via django-compressor
-six==1.10.0               # via argon2-cffi, django-coverage-plugin, django-environ, faker, python-dateutil
+six==1.10.0               # via argon2-cffi, django-coverage-plugin, django-environ, faker, mock, python-dateutil
 termcolor==1.1.0          # via pytest-sugar
 ukpostcodeparser==1.1.1   # via faker
 unidecode==0.4.21         # via awesome-slugify

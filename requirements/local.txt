@@ -49,8 +49,10 @@ jinja2==2.9.6             # via sphinx
 kombu==3.0.37             # via celery
 markupsafe==1.0           # via jinja2
 mccabe==0.6.1             # via flake8
+mock==2.0.0
 oauthlib==2.0.2           # via requests-oauthlib
 olefile==0.44             # via pillow
+pbr==3.1.1                # via mock
 pexpect==4.2.1            # via ipython
 pickleshare==0.7.4        # via ipython
 pillow==4.2.1
@@ -76,7 +78,7 @@ requests-oauthlib==0.8.0  # via django-allauth
 requests==2.18.4          # via django-allauth, requests-oauthlib, sphinx
 rjsmin==1.0.12            # via django-compressor
 simplegeneric==0.8.1      # via ipython
-six==1.10.0               # via argon2-cffi, django-coverage-plugin, django-environ, django-extensions, faker, pip-tools, prompt-toolkit, python-dateutil, sphinx, traitlets
+six==1.10.0               # via argon2-cffi, django-coverage-plugin, django-environ, django-extensions, faker, mock, pip-tools, prompt-toolkit, python-dateutil, sphinx, traitlets
 snowballstemmer==1.2.1    # via sphinx
 sphinx==1.6.3
 sphinxcontrib-websupport==1.0.1  # via sphinx
