@@ -20,7 +20,18 @@ class Job(models.Model):
         ),
     )
 
+    code = models.CharField(
+        max_length=255,
+        help_text=_(
+            "The code given by Reddit, we use this to exchange for tokens",
+        ),
+    )
+
     started = models.DateTimeField(
+        auto_now_add = True,
+    )
+
+    last_updated = models.DateTimeField(
         auto_now_add = True,
     )
 

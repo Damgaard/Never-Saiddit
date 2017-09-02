@@ -50,33 +50,42 @@ class OAuthCallbackRedirectView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
 
-        if "error" in self.request.GET:
-            # Most common case, user denied our authorization. Give
-            # them a specialized error page
-            if self.request.GET['error'] == "access_denied":
-                return reverse('denied')
-            return reverse('error')
-
-        if "code" not in self.request.GET or "state" not in self.request.GET:
-            return reverse('error')
-
         # Confirm that we created the state, if not break it off.
         try:
-            jobs = Job.objects.filter(identifier=self.request.GET['state'])
+            jobs = Job.objects.filter(identifier=self.request.GET.get('state', None))
 
             if not jobs.exists():
                 return reverse('error')
+
         except ValueError:
             # Given state is not a UUID hex
             return reverse('error')
 
-        # Old / started task
         job = jobs[0]
+        if "error" in self.request.GET:
+            # Most common case, user denied our authorization. Give
+            # them a specialized error page
+            if self.request.GET['error'] == "access_denied":
+                job.state = Job.STATE_ACCESS_DENIED
+                job.save()
+                return reverse('denied')
+
+            job.state = Job.STATE_UNKNOWN_ERROR
+            job.save()
+            return reverse('error')
+
+        # Old / started task
         is_too_old = job.started + timezone.timedelta(minutes=90) < timezone.now()
         if is_too_old or job.state != Job.STATE_AUTHORIZE:
+            job.state = Job.STATE_UNKNOWN_ERROR
+            job.save()
+            return reverse('error')
+
+        if "code" not in self.request.GET:
             return reverse('error')
 
         job.state = Job.STATE_RECEIVED_CODE_AND_STATE
+        job.code = self.request.GET['code']
         job.save()
 
         return reverse('destruction')
