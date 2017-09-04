@@ -2,9 +2,9 @@ import mock
 
 from django.test import TestCase
 
-from duster.reddit.management.commands import update_jobs
+from never_saiddit.reddit.management.commands import update_jobs
 
-from duster.core.models import Job
+from never_saiddit.core.models import Job
 
 
 class TestUpdateJobsState(TestCase):

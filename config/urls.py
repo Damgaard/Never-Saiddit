@@ -15,14 +15,14 @@ urlpatterns = [
     url(r'^error/$', TemplateView.as_view(template_name='pages/error.html'), name='error'),
 
     # Redirects for talking to Reddit
-    url(r'^reddit/', include('duster.reddit.urls', namespace='reddit')),
+    url(r'^reddit/', include('never_saiddit.reddit.urls', namespace='reddit')),
 
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
 
     # User management
-    url(r'^', include('duster.core.urls', namespace='core')),
-    url(r'^users/', include('duster.users.urls', namespace='users')),
+    url(r'^', include('never_saiddit.core.urls', namespace='core')),
+    url(r'^users/', include('never_saiddit.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

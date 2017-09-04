@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class CoreConfig(AppConfig):
-    name = 'duster.core'
-    verbose_name = "Core"
+class RedditConfig(AppConfig):
+    name = 'never_saiddit.reddit'
+    verbose_name = "Reddit"
 
     def ready(self):
         """Override this to put in:

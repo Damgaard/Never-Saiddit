@@ -2,7 +2,7 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 
-from duster.core.models import Job
+from never_saiddit.core.models import Job
 
 
 def get_job_status(request):

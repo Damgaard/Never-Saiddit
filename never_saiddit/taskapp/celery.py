@@ -9,12 +9,12 @@ if not settings.configured:
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.local')  # pragma: no cover
 
 
-app = Celery('duster')
+app = Celery('never_saiddit')
 
 
 
 class CeleryConfig(AppConfig):
-    name = 'duster.taskapp'
+    name = 'never_saiddit.taskapp'
     verbose_name = 'Celery Config'
 
     def ready(self):

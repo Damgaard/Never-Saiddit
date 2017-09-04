@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class RedditConfig(AppConfig):
-    name = 'duster.reddit'
-    verbose_name = "Reddit"
+class UsersConfig(AppConfig):
+    name = 'never_saiddit.users'
+    verbose_name = "Users"
 
     def ready(self):
         """Override this to put in:

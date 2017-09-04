@@ -6,7 +6,7 @@ import praw
 from django.core.management.base import BaseCommand
 from django.conf import settings
 
-from duster.core.models import Job
+from never_saiddit.core.models import Job
 
 REDDIT_QUERY_LIMIT = 10
 

@@ -1,6 +1,6 @@
 from test_plus.test import TestCase
 
-from duster.core.models import Job
+from never_saiddit.core.models import Job
 
 
 class TestGetJobStatus(TestCase):

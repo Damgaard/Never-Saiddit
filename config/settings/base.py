@@ -1,5 +1,5 @@
 """
-Django settings for Duster project.
+Django settings for Never Saiddit project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/dev/topics/settings/
@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 import environ
 
-ROOT_DIR = environ.Path(__file__) - 3  # (duster/config/settings/base.py - 3 = duster/)
-APPS_DIR = ROOT_DIR.path('duster')
+ROOT_DIR = environ.Path(__file__) - 3  # (never_saiddit/config/settings/base.py - 3 = never_saiddit/)
+APPS_DIR = ROOT_DIR.path('never_saiddit')
 
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
@@ -54,10 +54,10 @@ THIRD_PARTY_APPS = [
 # Apps specific for this project go here.
 LOCAL_APPS = [
     # custom users app
-    'duster.users.apps.UsersConfig',
+    'never_saiddit.users.apps.UsersConfig',
 
-    'duster.core.apps.CoreConfig',
-    'duster.reddit.apps.RedditConfig',
+    'never_saiddit.core.apps.CoreConfig',
+    'never_saiddit.reddit.apps.RedditConfig',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -78,7 +78,7 @@ MIDDLEWARE = [
 # MIGRATIONS CONFIGURATION
 # ------------------------------------------------------------------------------
 MIGRATION_MODULES = {
-    'sites': 'duster.contrib.sites.migrations'
+    'sites': 'never_saiddit.contrib.sites.migrations'
 }
 
 # DEBUG
@@ -111,7 +111,7 @@ MANAGERS = ADMINS
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///duster'),
+    'default': env.db('DATABASE_URL', default='postgres:///never_saiddit'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
@@ -255,8 +255,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
-ACCOUNT_ADAPTER = 'duster.users.adapters.AccountAdapter'
-SOCIALACCOUNT_ADAPTER = 'duster.users.adapters.SocialAccountAdapter'
+ACCOUNT_ADAPTER = 'never_saiddit.users.adapters.AccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'never_saiddit.users.adapters.SocialAccountAdapter'
 
 # Custom user app defaults
 # Select the correct user model
@@ -269,7 +269,7 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 ########## CELERY
 
-INSTALLED_APPS += ['duster.taskapp.celery.CeleryConfig']
+INSTALLED_APPS += ['never_saiddit.taskapp.celery.CeleryConfig']
 CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='django://')
 if CELERY_BROKER_URL == 'django://':
     CELERY_RESULT_BACKEND = 'redis://'

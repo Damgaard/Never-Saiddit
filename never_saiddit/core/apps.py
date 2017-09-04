@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class UsersConfig(AppConfig):
-    name = 'duster.users'
-    verbose_name = "Users"
+class CoreConfig(AppConfig):
+    name = 'never_saiddit.core'
+    verbose_name = "Core"
 
     def ready(self):
         """Override this to put in:
