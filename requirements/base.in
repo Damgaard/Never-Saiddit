@@ -46,3 +46,8 @@ celery==3.1.25
 # Static files
 rcssmin==1.0.6
 django-compressor==2.2
+
+# Reddit Module
+###############
+
+praw==5.1.0

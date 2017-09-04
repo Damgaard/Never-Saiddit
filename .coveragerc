@@ -1,5 +1,5 @@
 [run]
-include = duster/*
+include = never_saiddit/*
 omit =
     *migrations*
     *tests*

@@ -39,6 +39,8 @@ oauthlib==2.0.2           # via requests-oauthlib
 olefile==0.44             # via pillow
 pbr==3.1.1                # via mock
 pillow==4.2.1
+praw==5.1.0
+prawcore==0.12.0          # via praw
 psycopg2==2.7.3.1
 py==1.4.34                # via pytest
 pycodestyle==2.3.1        # via flake8
@@ -54,11 +56,12 @@ rcssmin==1.0.6
 redis==2.10.6
 regex==2017.7.28          # via awesome-slugify
 requests-oauthlib==0.8.0  # via django-allauth
-requests==2.18.4          # via django-allauth, requests-oauthlib
+requests==2.18.4          # via django-allauth, prawcore, requests-oauthlib, update-checker
 rjsmin==1.0.12            # via django-compressor
 six==1.10.0               # via argon2-cffi, django-coverage-plugin, django-environ, faker, mock, python-dateutil
 termcolor==1.1.0          # via pytest-sugar
 ukpostcodeparser==1.1.1   # via faker
 unidecode==0.4.21         # via awesome-slugify
+update-checker==0.16      # via praw
 urllib3==1.22             # via requests
 wheel==0.29.0
