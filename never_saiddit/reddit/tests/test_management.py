@@ -46,6 +46,11 @@ class TestUpdateJobsGeneral(TestCase):
         result = self.command.get_next_job()
         self.assertEqual(result, self.job)
 
+    def test_should_shutdown(self):
+        with mock.patch.object(update_jobs.os.path, 'exists', return_value=True):
+            result = self.command.should_shutdown_gracefully()
+
+
 class TestUpdateJobsHandle(TestCase):
 
     """Tests for the handle functions in the management command."""

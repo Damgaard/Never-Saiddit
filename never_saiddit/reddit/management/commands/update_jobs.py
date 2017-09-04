@@ -1,5 +1,6 @@
-import time
 import calendar
+import os
+import time
 
 import praw
 
@@ -92,6 +93,11 @@ class Command(BaseCommand):
         anything in an invalid state.
 
         """
+
+        # This approach binds us to the OS a bit more than I would normally
+        # be happy with. However it solves the problem and for now we
+        # can live with the binding.
+        return os.path.exists('/tmp/shutdown_never_saiddt')
 
     def handle_unknown_state(self, job):
         """Handle a job we were given with an unknown state."""
