@@ -78,13 +78,6 @@ class Command(BaseCommand):
         """
         pass
 
-    def mark_as_started(self):
-        """Mark that we have started this task.
-
-        This is used to avoid launching multiple instances of this
-        program.
-
-        """
 
     def should_shutdown_gracefully(self):
         """If True, this program will be terminated.
@@ -128,8 +121,6 @@ class Command(BaseCommand):
         time.sleep(0.5)
 
     def handle(self, *args, **options):
-        self.mark_as_started()
-
         STATE_FUNCS = {
             Job.STATE_RECEIVED_CODE_AND_STATE: self.exchange_code_for_token,
             Job.STATE_AUTHENTICATED: self.authentication_exchange,
