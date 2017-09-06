@@ -85,6 +85,14 @@ class TestUpdateJobsHandle(TestCase):
             self.command.handle()
 
     @_stop_on_second_execution_wrapper
+    def test_no_job(self):
+        self.job.delete()
+
+        with mock.patch.object(self.command, 'handle_no_job') as mocked_step_function:
+            self.command.handle()
+            self.assertTrue(mocked_step_function.called)
+
+    @_stop_on_second_execution_wrapper
     def test_calls_right_step_function(self):
         self.job.state = Job.STATE_RECEIVED_CODE_AND_STATE
         self.job.save()
