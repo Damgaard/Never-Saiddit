@@ -63,7 +63,6 @@ class Command(BaseCommand):
         job.save()
         '''
 
-
     def should_shutdown_gracefully(self):
         """If True, this program will be terminated.
 
@@ -113,9 +112,6 @@ class Command(BaseCommand):
             Job.STATE_AUTHENTICATED: self.authentication_exchange,
             Job.STATE_DELETING_CONTENT: self.delete_content,
         }
-
-        # The function that will be called to executed this step
-        step_func = None
 
         while not self.should_shutdown_gracefully():
             job = self.get_next_job()
