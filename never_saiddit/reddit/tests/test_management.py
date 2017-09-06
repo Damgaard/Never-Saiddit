@@ -29,6 +29,10 @@ class TestUpdateJobsState(TestCase):
         self.command.handle_no_job(None)
         self.assertTrue(mocked_time.called)
 
+    def test_handle_unknown_state(self):
+        with self.assertRaises(Exception):
+            self.command.handle_unknown_state(self.job)
+
 
 class TestUpdateJobsGeneral(TestCase):
 
@@ -51,6 +55,22 @@ class TestUpdateJobsGeneral(TestCase):
             result = self.command.should_shutdown_gracefully()
 
 
+def _stop_on_second_execution_wrapper(wrapped_function):
+    """Wraps a test, so that the main loop terminates after 1 iteration."""
+
+    def wrapper(self, *args, **kwargs):
+        def false_then_true(*args):
+            def second_call(*args):
+                return True
+            mocked_shutdown.side_effect = second_call
+            return False
+
+        with mock.patch.object(self.command, 'should_shutdown_gracefully', side_effect=false_then_true) as mocked_shutdown:
+            with mock.patch.object(self.command, 'handle_no_job', return_value=None):
+                return wrapped_function(self, *args, **kwargs)
+
+    return wrapper
+
 class TestUpdateJobsHandle(TestCase):
 
     """Tests for the handle functions in the management command."""
@@ -59,18 +79,16 @@ class TestUpdateJobsHandle(TestCase):
         self.command = update_jobs.Command()
         self.job = Job.objects.create()
 
-    def test_stops_on_shutdown(self):
+    def test_terminates_if_asked_to_shutdown(self):
         # If this doesn't work, this test will never terminate
         with mock.patch.object(self.command, 'should_shutdown_gracefully', return_value=True):
-            with mock.patch.object(self.command, 'handle_no_job', return_value=None):
-                self.command.handle()
+            self.command.handle()
 
+    @_stop_on_second_execution_wrapper
     def test_calls_right_step_function(self):
         self.job.state = Job.STATE_RECEIVED_CODE_AND_STATE
         self.job.save()
 
-        with mock.patch.object(self.command, 'should_shutdown_gracefully', return_value=True):
-            with mock.patch.object(self.command, 'handle_no_job', return_value=None):
-                with mock.patch.object(self.command, 'exchange_code_for_token') as mocked_step_function:
-                    self.command.handle()
-                    self.assertTrue(mocked_step_function.called)
+        with mock.patch.object(self.command, 'exchange_code_for_token') as mocked_step_function:
+            self.command.handle()
+            self.assertTrue(mocked_step_function.called)

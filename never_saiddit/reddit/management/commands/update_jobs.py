@@ -79,6 +79,8 @@ class Command(BaseCommand):
 
     def handle_unknown_state(self, job):
         """Handle a job we were given with an unknown state."""
+        raise Exception("Tried to handle unknown state. Dunno what to do. "
+                        "so lets crash.")
 
     def get_next_job(self):
         """Return next available job for processing.
@@ -115,7 +117,7 @@ class Command(BaseCommand):
         # The function that will be called to executed this step
         step_func = None
 
-        while True:
+        while not self.should_shutdown_gracefully():
             job = self.get_next_job()
 
             if job is None:
@@ -125,6 +127,3 @@ class Command(BaseCommand):
 
             # TODO: Update last_updated on each iteration
             step_func(job)
-
-            if self.should_shutdown_gracefully():
-                break
