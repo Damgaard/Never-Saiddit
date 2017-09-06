@@ -1,20 +1,12 @@
-import praw
-
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.views.generic.base import RedirectView
 
 from ..core.models import Job
+from never_saiddit.reddit.utils import get_reddit_instance
 
 
-# Create the global reddit instance used to interact via PRAW.
-# It's state will never change.
-r = praw.Reddit(user_agent='Dust. Giving users the power to remove their content.'
-                           ' Created by /u/_Daimon_',
-                client_id=settings.REDDIT_CLIENT_ID,
-                client_secret=settings.REDDIT_CLIENT_SECRET,
-                redirect_uri=settings.REDDIT_REDIRECT_URL)
 
 
 class AuthorizeRedirectView(RedirectView):
@@ -31,6 +23,7 @@ class AuthorizeRedirectView(RedirectView):
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
+        r = get_reddit_instance()
         job = Job.objects.create()
         return r.auth.url(['history', 'identity', 'read'], job.identifier, "permanent")
 

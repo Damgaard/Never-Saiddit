@@ -2,12 +2,11 @@ import calendar
 import os
 import time
 
-import praw
-
 from django.core.management.base import BaseCommand
 from django.conf import settings
 
 from never_saiddit.core.models import Job
+from never_saiddit.reddit.utils import get_reddit_instance
 
 REDDIT_QUERY_LIMIT = 10
 
@@ -17,11 +16,7 @@ class Command(BaseCommand):
     help = 'Program which is continually run to update jobs.'
 
     def authentication_exchange(self, job):
-        r = praw.Reddit(user_agent='Dust. Giving users the power to remove their content.'
-                                   ' Created by /u/_Daimon_',
-                        client_id=settings.REDDIT_CLIENT_ID,
-                        client_secret=settings.REDDIT_CLIENT_SECRET,
-                        refresh_token=job.refresh_token)
+        r = get_reddit_instance(refresh_token=job.refresh_token)
 
         # Hmmm, not sure I even need this stage. Seems pretty
         # wasteful.
@@ -32,11 +27,7 @@ class Command(BaseCommand):
 
     def delete_content(self, job):
         '''
-        r = praw.Reddit(user_agent='Dust. Giving users the power to remove their content.'
-                                   ' Created by /u/_Daimon_',
-                        client_id=settings.REDDIT_CLIENT_ID,
-                        client_secret=settings.REDDIT_CLIENT_SECRET,
-                        refresh_token=job.refresh_token)
+        r = get_reddit_instance(refresh_token=job.refresh_token)
 
         comments = r.user.me().comments.new(limit=REDDIT_QUERY_LIMIT)
 
@@ -61,22 +52,16 @@ class Command(BaseCommand):
         pass
 
     def exchange_code_for_token(self, job):
-        """
-        r = praw.Reddit(user_agent='Dust. Giving users the power to remove their content.'
-                                   ' Created by /u/_Daimon_',
-                        client_id=settings.REDDIT_CLIENT_ID,
-                        client_secret=settings.REDDIT_CLIENT_SECRET,
-                        redirect_uri=settings.REDDIT_REDIRECT_URL)
+        r = get_reddit_instance(refresh_token=job.refresh_token)
 
         print("Step: Process code")
-
+        '''
         refresh_token = r.auth.authorize(job.code)
 
         job.refresh_token = refresh_token
         job.state = Job.STATE_AUTHENTICATED
         job.save()
-        """
-        pass
+        '''
 
 
     def should_shutdown_gracefully(self):
