@@ -113,6 +113,18 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///never_saiddit'),
 }
+
+# Temporarily run the site on SQLite to get it more quickly up and running.
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(ROOT_DIR('never_saiddit.db')),
+        'USER': '',
+        'PASSWORD': '',
+        'PORT': '',
+    }
+}
+
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 

@@ -302,5 +302,7 @@ pip-selfcheck.json
 
 
 
+never_saiddit/media/
 
-duster/media/
+# Sqlite databases
+.db
