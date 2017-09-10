@@ -42,26 +42,25 @@ class Command(BaseCommand):
 
         for comment in comments:
             if comment.created_utc < calendar.timegm(job.started.utctimetuple()):
+                job.comments_deleted = job.comments_deleted + 1
+                # Delete comment
                 print(comment)
                 break
         else:
             print("No comments within timeframe")
             job.state = Job.STATE_FINISHED
-            job.save()
-        '''
-        pass
+
+        job.save()
 
     def exchange_code_for_token(self, job):
         r = get_reddit_instance(refresh_token=job.refresh_token)
 
         print("Step: Process code")
-        '''
         refresh_token = r.auth.authorize(job.code)
 
         job.refresh_token = refresh_token
         job.state = Job.STATE_AUTHENTICATED
         job.save()
-        '''
 
     def should_shutdown_gracefully(self):
         """If True, this program will be terminated.

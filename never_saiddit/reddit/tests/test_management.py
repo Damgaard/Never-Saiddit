@@ -3,6 +3,7 @@ import mock
 from django.test import TestCase
 
 from never_saiddit.reddit.management.commands import update_jobs
+from never_saiddit.reddit.tests.utils import FakeReddit
 
 from never_saiddit.core.models import Job
 
@@ -18,10 +19,8 @@ class TestUpdateJobsState(TestCase):
     def test_authentication_exchange(self):
         self.command.authentication_exchange(self.job)
 
-    def test_delete_content(self):
-        self.command.delete_content(self.job)
-
-    def test_exchange_code_for_token(self):
+    @mock.patch.object(update_jobs, 'get_reddit_instance', return_value=FakeReddit)
+    def test_exchange_code_for_token(self, faked_reddit_instance):
         self.command.exchange_code_for_token(self.job)
 
     @mock.patch.object(update_jobs.time, 'sleep')
