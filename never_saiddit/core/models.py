@@ -55,7 +55,8 @@ class Job(models.Model):
     STATE_AUTHORIZE = 10
     STATE_RECEIVED_CODE_AND_STATE = 20
     STATE_AUTHENTICATED = 30
-    STATE_DELETING_CONTENT = 40
+    STATE_DELETING_COMMENTS = 40
+    STATE_DELETING_SUBMISSIONS = 41
     STATE_FINISHED = 50
     STATE_UNKNOWN_ERROR = 100
     STATE_ACCESS_DENIED = 101
@@ -68,7 +69,8 @@ class Job(models.Model):
         (STATE_AUTHORIZE, _('Asked user to authorize')),
         (STATE_RECEIVED_CODE_AND_STATE, _('Received code and state')),
         (STATE_AUTHENTICATED, _('Authenticated as user on Reddit')),
-        (STATE_DELETING_CONTENT, _('Deleting content')),
+        (STATE_DELETING_COMMENTS, _('Deleting comments')),
+        (STATE_DELETING_SUBMISSIONS, _('Deleting submissions')),
         (STATE_FINISHED, _('Finished')),
         (STATE_UNKNOWN_ERROR, _('Unknown error')),
         (STATE_ACCESS_DENIED, _('Access denied')),

@@ -16,24 +16,25 @@ class Command(BaseCommand):
     help = 'Program which is continually run to update jobs.'
 
     def authentication_exchange(self, job):
+        # Hmmm.... I think this should be a user step, to confirm
+        # the breaking
         r = get_reddit_instance(refresh_token=job.refresh_token)
 
         # Hmmm, not sure I even need this stage. Seems pretty
         # wasteful.
         print("Step: Process Authentication")
 
-        job.state = Job.STATE_DELETING_CONTENT
+        job.state = Job.STATE_DELETING_COMMENTS
         job.save()
 
-    def delete_content(self, job):
-        '''
+    def delete_comments(self, job):
         r = get_reddit_instance(refresh_token=job.refresh_token)
 
         comments = r.user.me().comments.new(limit=REDDIT_QUERY_LIMIT)
 
         # Assumption. Users are not going to create a lot of content
         # after starting the deletion process, therefore we can
-        # proceed and just process the first task after started attr.
+        # proceed and just process the first task after started after.
 
         # TODO: Something needs to be done if we intend to anonymize
         # content first in the way that we select first comment to
@@ -48,6 +49,32 @@ class Command(BaseCommand):
                 break
         else:
             print("No comments within timeframe")
+            job.state = Job.DELETING_SUBMISSIONS
+
+        job.save()
+
+    def delete_submissions(self, job):
+        r = get_reddit_instance(refresh_token=job.refresh_token)
+
+        comments = r.user.me().submissions.new(limit=REDDIT_QUERY_LIMIT)
+
+        # Assumption. Users are not going to create a lot of content
+        # after starting the deletion process, therefore we can
+        # proceed and just process the first task after started after.
+
+        # TODO: Something needs to be done if we intend to anonymize
+        # content first in the way that we select first submission
+        # alter
+        print("Step: Processing submissions")
+
+        for submission in submissions:
+            if submission.created_utc < calendar.timegm(job.started.utctimetuple()):
+                job.submissions_deleted = job.submissions_deleted + 1
+                # Delete submission
+                print(submission)
+                break
+        else:
+            print("No submissions within timeframe")
             job.state = Job.STATE_FINISHED
 
         job.save()
@@ -109,7 +136,8 @@ class Command(BaseCommand):
         STATE_FUNCS = {
             Job.STATE_RECEIVED_CODE_AND_STATE: self.exchange_code_for_token,
             Job.STATE_AUTHENTICATED: self.authentication_exchange,
-            Job.STATE_DELETING_CONTENT: self.delete_content,
+            Job.STATE_DELETING_COMMENTS: self.delete_comments,
+            Job.STATE_DELETING_SUBMISSIONS: self.delete_submissions,
         }
 
         while not self.should_shutdown_gracefully():
