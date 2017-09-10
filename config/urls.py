@@ -25,6 +25,9 @@ urlpatterns = [
     url(r'^users/', include('never_saiddit.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 
+    # Static files
+    url(r'^robots\.txt', include('robots.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

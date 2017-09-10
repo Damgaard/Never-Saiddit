@@ -30,6 +30,7 @@ django-environ==0.4.4
 django-extensions==1.9.0
 django-model-utils==3.0.0
 django-redis==4.8.0
+django-robots==3.0
 django-test-plus==1.0.18
 django==1.10.7
 dnspython==1.15.0         # via email-validator

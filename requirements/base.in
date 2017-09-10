@@ -51,3 +51,4 @@ django-compressor==2.2
 ###############
 
 praw==5.1.0
+django-robots==3.0
