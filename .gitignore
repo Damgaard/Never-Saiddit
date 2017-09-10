@@ -305,4 +305,4 @@ pip-selfcheck.json
 never_saiddit/media/
 
 # Sqlite databases
-.db
+*.db
