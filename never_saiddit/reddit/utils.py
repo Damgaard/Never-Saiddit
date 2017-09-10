@@ -12,6 +12,16 @@ def get_reddit_instance(refresh_token=None):
     """
     user_agent = ('Dust. Giving users the power to remove their content.'
                   ' Created by /u/_Daimon_')
+    required_attributes = [settings.REDDIT_CLIENT_ID,
+                           settings.REDDIT_CLIENT_SECRET,
+                           settings.REDDIT_REDIRECT_URL,
+                          ]
+
+    print(required_attributes)
+
+    if any(x is None for x in required_attributes):
+        raise Exception("Badly configured setup. Missing PRAW setting.")
+
     return praw.Reddit(user_agent=user_agent,
                        client_id=settings.REDDIT_CLIENT_ID,
                        client_secret=settings.REDDIT_CLIENT_SECRET,

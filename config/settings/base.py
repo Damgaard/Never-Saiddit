@@ -7,6 +7,8 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
+
+import logging
 import environ
 
 ROOT_DIR = environ.Path(__file__) - 3  # (never_saiddit/config/settings/base.py - 3 = never_saiddit/)
@@ -301,3 +303,19 @@ ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+
+# PRAW secrets
+# ------------------------------------------------------------------------------
+
+REDDIT_CLIENT_ID= env('REDDIT_CLIENT_ID', default=None)
+REDDIT_CLIENT_SECRET= env('REDDIT_CLIENT_SECRET', default=None)
+REDDIT_REDIRECT_URL= env('REDDIT_REDIRECT_URL', default=None)
+
+# PRAW logging
+# ------------------------------------------------------------------------------
+
+handler = logging.StreamHandler()
+handler.setLevel(logging.DEBUG)
+logger = logging.getLogger('prawcore')
+logger.setLevel(logging.DEBUG)
+logger.addHandler(handler)
