@@ -4,6 +4,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from django.contrib.sitemaps.views import sitemap
+
+from .sitemaps import StaticViewSitemap
+
+
+sitemaps = {
+    'static': StaticViewSitemap,
+}
 
 urlpatterns = [
     # General
@@ -25,8 +33,10 @@ urlpatterns = [
     url(r'^users/', include('never_saiddit.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 
-    # Static files
+    # Special root-level files
     url(r'^robots\.txt', include('robots.urls')),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
