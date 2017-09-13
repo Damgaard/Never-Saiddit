@@ -25,9 +25,6 @@ urlpatterns = [
     # Redirects for talking to Reddit
     url(r'^reddit/', include('never_saiddit.reddit.urls', namespace='reddit')),
 
-    # Django Admin, use {% url 'admin:index' %}
-    url(settings.ADMIN_URL, admin.site.urls),
-
     # User management
     url(r'^', include('never_saiddit.core.urls', namespace='core')),
     url(r'^users/', include('never_saiddit.users.urls', namespace='users')),
@@ -54,3 +51,6 @@ if settings.DEBUG:
         urlpatterns = [
             url(r'^__debug__/', include(debug_toolbar.urls)),
         ] + urlpatterns
+
+    # Admin is only enabled in development. Unneccesary security risk in prod
+    url('admin', admin.site.urls),
