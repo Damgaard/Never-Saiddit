@@ -105,18 +105,18 @@ INSTALLED_APPS += ['gunicorn', ]
 # COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
 # EMAIL
 # ------------------------------------------------------------------------------
-# DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
-#                          default='never-saiddit <noreply@never-saiddit.com>')
-# EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[never-saiddit]')
-# SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
+                          default='never-saiddit <noreply@never-saiddit.com>')
+EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[never-saiddit]')
+SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 
 # Anymail with Mailgun
-# INSTALLED_APPS += ['anymail', ]
-# ANYMAIL = {
-#     'MAILGUN_API_KEY': env('DJANGO_MAILGUN_API_KEY'),
-#     'MAILGUN_SENDER_DOMAIN': env('MAILGUN_SENDER_DOMAIN')
-# }
-# EMAIL_BACKEND = 'anymail.backends.mailgun.MailgunBackend'
+INSTALLED_APPS += ['anymail', ]
+ANYMAIL = {
+    'MAILGUN_API_KEY': env('DJANGO_MAILGUN_API_KEY'),
+    'MAILGUN_SENDER_DOMAIN': env('MAILGUN_SENDER_DOMAIN', default="mg.never-saiddit.com")
+}
+EMAIL_BACKEND = 'anymail.backends.mailgun.MailgunBackend'
 
 # TEMPLATE CONFIGURATION
 # ------------------------------------------------------------------------------
