@@ -17,8 +17,6 @@ def get_reddit_instance(refresh_token=None):
                            settings.REDDIT_REDIRECT_URL,
                           ]
 
-    print(required_attributes)
-
     if any(x is None for x in required_attributes):
         raise Exception("Badly configured setup. Missing PRAW setting.")
 
