@@ -49,14 +49,14 @@ class Command(BaseCommand):
                 break
         else:
             print("No comments within timeframe")
-            job.state = Job.DELETING_SUBMISSIONS
+            job.state = Job.STATE_DELETING_SUBMISSIONS
 
         job.save()
 
     def delete_submissions(self, job):
         r = get_reddit_instance(refresh_token=job.refresh_token)
 
-        comments = r.user.me().submissions.new(limit=REDDIT_QUERY_LIMIT)
+        submissions = r.user.me().submissions.new(limit=REDDIT_QUERY_LIMIT)
 
         # Assumption. Users are not going to create a lot of content
         # after starting the deletion process, therefore we can
