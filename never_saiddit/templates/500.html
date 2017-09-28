@@ -3,11 +3,21 @@
 {% block title %}Server Error{% endblock %}
 
 {% block content %}
-<h1>Ooops!!! 500</h1>
+<section class="bg-primary" id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="section-heading text-white">Error 500: Server Error</h2>
+        <hr class="light">
+        <p class="text-faded">BOOM. Something just went wrong.</p>
 
-<h3>Looks like something went wrong!</h3>
+        <p class="text-faded">I don't know what it is or how to fix it, but I'm just a poor robot :( I've sent an email to a human, hopefully they will come around and fix whatever went wrong.</p>
 
-<p>We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.</p>
-{% endblock content %}
+        <p class="text-faded">It could be that it was just something temporary, so you can try and do whatever it was you did before. It might work this time.</p>
 
-
+        <a class="btn btn-default btn-xl js-scroll-trigger" href="/">Take me to the homepage!</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

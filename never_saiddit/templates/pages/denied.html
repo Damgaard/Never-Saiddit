@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-You denied us access!
+<section class="bg-primary" id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="section-heading text-white">Access declined</h2>
+        <hr class="light">
+        <p class="text-faded">You said no, when Reddit asked you to authorize us to delete content on your behalf.<br>
+        We respect your choice.
+        </p>
+
+        <a class="btn btn-default btn-xl js-scroll-trigger" href="/">Take me to the homepage!</a>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

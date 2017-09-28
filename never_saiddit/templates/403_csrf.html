@@ -3,7 +3,18 @@
 {% block title %}Forbidden (403){% endblock %}
 
 {% block content %}
-<h1>Forbidden (403)</h1>
+<section class="bg-primary" id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="section-heading text-white">Error 403: Forbidden</h2>
+        <hr class="light">
+        <p class="text-faded">Looks like you just tried to access a page that you weren't allowed to. Could also be that you had some problems with CSRF verification, in which case go back, reload the page and try to submit the form again.
+        </p>
 
-<p>CSRF verification failed. Request aborted.</p>
-{% endblock content %}
+        <a class="btn btn-default btn-xl js-scroll-trigger" href="/">Take me to the homepage!</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

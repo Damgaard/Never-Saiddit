@@ -1,27 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Currently destroying your reddit account!!</h2>
+<section class="bg-primary" id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="section-heading text-white">Deleting your content</h2>
+        <hr class="light">
+        <p class="text-faded">Currently destroying your content.
+        </p>
 
-<br>
-<p>Hope this is what you wanted :)</p>
-
-<br>
-<h3>Progress</h3>
-<p class="text-muted">Asking you to authorize us<p>
-<p id="state_access" {% if object.state > 20 %}class="text-muted"{% endif %}>You grant us access on Reddit</p>
-<p  id="state_validate" {% if object.state > 30 %}class="text-muted"{% endif %}>Validating that we got good data</p>
-<p id="state_deleting" {% if object.state > 40 %}class="text-muted"{% endif %}>Deleting your content</p>
-<p>Showing you data</p>
-
-<h3>Actions</h3>
-
-<p>Deleted <span id="delete_comments">{{ job.comments_deleted }}</span> comments so far.</p>
-<p>Deleted <span id="delete_submissions">{{ job.submissions_deleted }}</span> posts so far.</p>
-
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-success">You started the process</li>
+          <li id="state_validate" class="list-group-item">We validated that we got good data</li>
+          <li id="state_access" class="list-group-item">You give the final confirmation</li>
+          <li id="deleting_comments" class="list-group-item justify-content-between">Deleting Comments <span class="badge badge-default badge-pill" style="background-color: cadetblue" id="count_comments_deleted">0</span>  </li>
+          <li id="deleting_submissions" class="list-group-item justify-content-between">Deleting Submissions
+           <span class="badge badge-default badge-pill" style="background-color: cadetblue" id="count_submissions_deleted">0</span>
+        </li>
+        </ul>
+        <br>
+        <a class="btn btn-default btn-xl js-scroll-trigger" href="/">Take me to the homepage!</a>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
 
-{% block extra_js %}
+{% block js %}
+{{ block.super }}
 <script type="text/javascript">
   setInterval(function(){
   $.ajax({
@@ -31,19 +38,24 @@
   })
     .done(function( msg ) {
       // TODO: Add error handling here as well
-      $('#delete_comments').text(msg.comments_deleted);
-      $('#delete_submissions').text(msg.submissions_deleted);
+      $('#count_comments_deleted').text(msg.comments_deleted);
+      $('#count_submissions_deleted').text(msg.submissions_deleted);
 
       // TODO: Fix hardcoding of state here
-      if (msg.state >= 50) {
-        $('#state_access').addClass('text-muted');
-        $('#state_validate').addClass('text-muted');
-        $('#state_deleting').addClass('text-muted');
+      if (msg.state >= 41) {
+        $('#deleting_submissions').addClass('list-group-item-success');
+        $('#deleting_comments').addClass('list-group-item-success');
+        $('#state_validate').addClass('list-group-item-success');
+        $('#state_access').addClass('list-group-item-success');
       } else if (msg.state >= 40) {
-        $('#state_access').addClass('text-muted');
-        $('#state_validate').addClass('text-muted');
+        $('#deleting_comments').addClass('list-group-item-success');
+        $('#state_validate').addClass('list-group-item-success');
+        $('#state_access').addClass('list-group-item-success');
       } else if (msg.state >= 30) {
-        $('#state_access').addClass('text-muted');
+        $('#state_validate').addClass('list-group-item-success');
+        $('#state_access').addClass('list-group-item-success');
+      } else if (msg.state >= 20) {
+        $('#state_validate').addClass('list-group-item-success');
       }
     });
   }, 1000);

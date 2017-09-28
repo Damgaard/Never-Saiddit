@@ -3,7 +3,22 @@
 {% block title %}Page not found{% endblock %}
 
 {% block content %}
-<h1>Page not found</h1>
+<section class="bg-primary" id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="section-heading text-white">Error 404: Page not found</h2>
+        <hr class="light">
+        <p class="text-faded">Wait, what? You're requesting a url, but we
+cannot find anything here. Something is not working the way it should be :(
+Could be that the content that was there is no longer there, or that the link
+was malformed in some way. You should try going to the homepage, and finding
+the content in some other way.
+        </p>
 
-<p>This is not the page you were looking for.</p>
-{% endblock content %}
+        <a class="btn btn-default btn-xl js-scroll-trigger" href="/">Take me to the homepage!</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
