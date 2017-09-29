@@ -1,6 +1,7 @@
 import calendar
 import os
 import time
+import logging
 
 from django.core.management.base import BaseCommand
 from django.conf import settings
@@ -22,7 +23,7 @@ class Command(BaseCommand):
 
         # Hmmm, not sure I even need this stage. Seems pretty
         # wasteful.
-        print("Step: Process Authentication")
+        logging.info("Step: Process Authentication")
 
         job.state = Job.STATE_DELETING_COMMENTS
         job.save()
@@ -39,16 +40,15 @@ class Command(BaseCommand):
         # TODO: Something needs to be done if we intend to anonymize
         # content first in the way that we select first comment to
         # alter
-        print("Step: Processing comments")
+        logging.info("Step: Processing comments")
 
         for comment in comments:
             if comment.created_utc < calendar.timegm(job.started.utctimetuple()):
                 job.comments_deleted = job.comments_deleted + 1
-                # Delete comment
-                print(comment)
+                # TODO: Delete comment
                 break
         else:
-            print("No comments within timeframe")
+            logging.info("No comments within timeframe")
             job.state = Job.STATE_DELETING_SUBMISSIONS
 
         job.save()
@@ -65,16 +65,15 @@ class Command(BaseCommand):
         # TODO: Something needs to be done if we intend to anonymize
         # content first in the way that we select first submission
         # alter
-        print("Step: Processing submissions")
+        logging.info("Step: Processing submissions")
 
         for submission in submissions:
             if submission.created_utc < calendar.timegm(job.started.utctimetuple()):
                 job.submissions_deleted = job.submissions_deleted + 1
-                # Delete submission
-                print(submission)
+                # TODO: Delete submission
                 break
         else:
-            print("No submissions within timeframe")
+            logging.info("No submissions within timeframe")
             job.state = Job.STATE_FINISHED
 
         job.save()
@@ -82,7 +81,7 @@ class Command(BaseCommand):
     def exchange_code_for_token(self, job):
         r = get_reddit_instance(refresh_token=job.refresh_token)
 
-        print("Step: Process code")
+        logging.info("Step: Process code")
         refresh_token = r.auth.authorize(job.code)
 
         job.refresh_token = refresh_token
@@ -146,6 +145,7 @@ class Command(BaseCommand):
             if job is None:
                 step_func = self.handle_no_job
             else:
+                logging.info("Looking at job: {}".format(job.identifier))
                 step_func = STATE_FUNCS.get(job.state, self.handle_unknown_state)
 
             try:
