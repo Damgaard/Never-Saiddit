@@ -50,23 +50,15 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Never Saiddit</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">Why</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">How</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">By Whom</a>
-            </li>
-          </ul>
-        </div>
+        {% block brand_navigation %}
+        {% comment %}This is a block so other pages can have different
+        behavior. Either using it as a "go-to-top" link or perhaps
+        just disabling the link, if the user is on a page we do not wish
+        them to easily navigate away from.{% endcomment %}
+        <a class="navbar-brand js-scroll-trigger" href="/">Never Saiddit</a>
+        {% endblock %}
+        {% block on_page_navigation %}
+        {% endblock %}
       </div>
     </nav>
 
