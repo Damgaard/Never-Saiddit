@@ -129,9 +129,18 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 
-# Use the Heroku-style specification
-# Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-# DATABASES['default'] = env.db('DATABASE_URL')
+# Raises ImproperlyConfigured exception if DATABASE_PASSWORD not in os.environ
+DATABASES = {
+    'default': {
+        'ATOMIC_REQUESTS': True,
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': env('DJANGO_DB_HOST', default='localhost'),
+        'NAME': env('DJANGO_DB_NAME', default='never_saiddit'),
+        'PASSWORD': env('DJANGO_DB_PASSWORD'),
+        'PORT': '',
+        'USER': env('DJANGO_DB_USER', default='never_saiddit'),
+    }
+}
 
 # CACHING
 # ------------------------------------------------------------------------------
