@@ -32,7 +32,7 @@ class Job(models.Model):
     )
 
     last_updated = models.DateTimeField(
-        auto_now_add = True,
+        auto_now = True,
     )
 
     identifier = models.UUIDField(

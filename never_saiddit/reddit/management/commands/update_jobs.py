@@ -148,7 +148,6 @@ class Command(BaseCommand):
             else:
                 step_func = STATE_FUNCS.get(job.state, self.handle_unknown_state)
 
-            # TODO: Update last_updated on each iteration
             try:
                 step_func(job)
             except Exception:

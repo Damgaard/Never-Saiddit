@@ -111,3 +111,15 @@ class TestUpdateJobsHandle(TestCase):
 
         reloaded_job = Job.objects.get(identifier=self.job.identifier)
         self.assertTrue(reloaded_job.state == Job.STATE_UNKNOWN_ERROR)
+
+    @_stop_on_second_execution_wrapper
+    def test_test_last_updated_gets_updated(self):
+        original_timestamp = self.job.last_updated
+        self.job.state = Job.STATE_RECEIVED_CODE_AND_STATE
+        self.job.save()
+
+        with mock.patch.object(self.command, 'exchange_code_for_token') as mocked_step_function:
+            self.command.handle()
+
+        reloaded_job = Job.objects.get(identifier=self.job.identifier)
+        self.assertNotEqual(original_timestamp, reloaded_job.last_updated)
