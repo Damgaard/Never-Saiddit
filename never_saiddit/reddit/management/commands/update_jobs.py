@@ -149,4 +149,16 @@ class Command(BaseCommand):
                 step_func = STATE_FUNCS.get(job.state, self.handle_unknown_state)
 
             # TODO: Update last_updated on each iteration
-            step_func(job)
+            try:
+                step_func(job)
+            except Exception:
+                # Unexpected error occured. Mark the effected job as having
+                # had an unexpected error, so we won't rerun that job again
+                # until the problem has been resolved.
+
+                if job:
+                    job.state = Job.STATE_UNKNOWN_ERROR
+                    job.save()
+
+                # Reraise the exception, so it can be dealt with later.
+                raise

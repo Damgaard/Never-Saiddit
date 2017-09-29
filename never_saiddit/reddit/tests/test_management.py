@@ -99,3 +99,15 @@ class TestUpdateJobsHandle(TestCase):
         with mock.patch.object(self.command, 'exchange_code_for_token') as mocked_step_function:
             self.command.handle()
             self.assertTrue(mocked_step_function.called)
+
+    @_stop_on_second_execution_wrapper
+    def test_unexpected_error(self):
+        self.job.state = Job.STATE_RECEIVED_CODE_AND_STATE
+        self.job.save()
+
+        with self.assertRaises(Exception):
+            with mock.patch.object(update_jobs, 'get_reddit_instance', side_effect=Exception):
+                self.command.handle()
+
+        reloaded_job = Job.objects.get(identifier=self.job.identifier)
+        self.assertTrue(reloaded_job.state == Job.STATE_UNKNOWN_ERROR)
