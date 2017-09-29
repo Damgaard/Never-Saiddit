@@ -16,7 +16,6 @@ sitemaps = {
 urlpatterns = [
     # General
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
     # Error pages
     url(r'^denied/$', TemplateView.as_view(template_name='pages/denied.html'), name='denied'),
