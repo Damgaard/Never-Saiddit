@@ -31,33 +31,39 @@
 {{ block.super }}
 <script type="text/javascript">
   setInterval(function(){
-  $.ajax({
-    method: "GET",
-    url: "http://localhost:8000/get_job_status/",
-    data: { identifier: "{{ job.identifier }}" }
-  })
-    .done(function( msg ) {
-      // TODO: Add error handling here as well
-      $('#count_comments_deleted').text(msg.comments_deleted);
-      $('#count_submissions_deleted').text(msg.submissions_deleted);
 
-      // TODO: Fix hardcoding of state here
-      if (msg.state >= 41) {
-        $('#deleting_submissions').addClass('list-group-item-success');
-        $('#deleting_comments').addClass('list-group-item-success');
-        $('#state_validate').addClass('list-group-item-success');
-        $('#state_access').addClass('list-group-item-success');
-      } else if (msg.state >= 40) {
-        $('#deleting_comments').addClass('list-group-item-success');
-        $('#state_validate').addClass('list-group-item-success');
-        $('#state_access').addClass('list-group-item-success');
-      } else if (msg.state >= 30) {
-        $('#state_validate').addClass('list-group-item-success');
-        $('#state_access').addClass('list-group-item-success');
-      } else if (msg.state >= 20) {
-        $('#state_validate').addClass('list-group-item-success');
-      }
-    });
+  // Simply way of testing whether the task in done, in which
+  // case there is no need to poll for an update.
+  if (!$('#deleting_submissions').hasClass('list-group-item-success')) {
+    $.ajax({
+      method: "GET",
+      url: "http://localhost:8000/get_job_status/",
+      data: { identifier: "{{ job.identifier }}" }
+    })
+      .done(function( msg ) {
+        // TODO: Add error handling here as well
+        $('#count_comments_deleted').text(msg.comments_deleted);
+        $('#count_submissions_deleted').text(msg.submissions_deleted);
+
+        // TODO: Fix hardcoding of state here
+        if (msg.state >= 41) {
+          $('#deleting_submissions').addClass('list-group-item-success');
+          $('#deleting_comments').addClass('list-group-item-success');
+          $('#state_validate').addClass('list-group-item-success');
+          $('#state_access').addClass('list-group-item-success');
+        } else if (msg.state >= 40) {
+          $('#deleting_comments').addClass('list-group-item-success');
+          $('#state_validate').addClass('list-group-item-success');
+          $('#state_access').addClass('list-group-item-success');
+        } else if (msg.state >= 30) {
+          $('#state_validate').addClass('list-group-item-success');
+          $('#state_access').addClass('list-group-item-success');
+        } else if (msg.state >= 20) {
+          $('#state_validate').addClass('list-group-item-success');
+        }
+      });
+    }
   }, 1000);
+
 </script>
 {% endblock %}
