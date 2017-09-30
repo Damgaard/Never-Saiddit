@@ -4,6 +4,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# General Python stuff
+virtualenv/
+
 # C extensions
 *.so
 
@@ -287,7 +290,6 @@ Session.vim
 # Auto-generated tag files
 tags
 
-
 ### VirtualEnv template
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
@@ -300,9 +302,8 @@ tags
 pyvenv.cfg
 pip-selfcheck.json
 
-
-
-never_saiddit/media/
-
-# Sqlite databases
+# Sqlite database (used in development)
 *.db
+
+# Media files
+never_saiddit/media/
