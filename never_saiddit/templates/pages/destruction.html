@@ -37,7 +37,7 @@
   if (!$('#deleting_submissions').hasClass('list-group-item-success')) {
     $.ajax({
       method: "GET",
-      url: "http://localhost:8000/get_job_status/",
+      url: "/get_job_status/",
       data: { identifier: "{{ job.identifier }}" }
     })
       .done(function( msg ) {
