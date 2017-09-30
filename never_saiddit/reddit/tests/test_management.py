@@ -16,9 +16,6 @@ class TestUpdateJobsState(TestCase):
         self.command = update_jobs.Command()
         self.job = Job.objects.create()
 
-    def test_authentication_exchange(self):
-        self.command.authentication_exchange(self.job)
-
     @mock.patch.object(update_jobs, 'get_reddit_instance', return_value=FakeReddit)
     def test_exchange_code_for_token(self, faked_reddit_instance):
         self.command.exchange_code_for_token(self.job)

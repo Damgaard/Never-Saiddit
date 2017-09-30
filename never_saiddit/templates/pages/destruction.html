@@ -12,8 +12,8 @@
 
         <ul class="list-group">
           <li class="list-group-item list-group-item-success">You started the process</li>
-          <li id="state_validate" class="list-group-item">We validated that we got good data</li>
           <li id="state_access" class="list-group-item">You give the final confirmation</li>
+          <li id="state_validate" class="list-group-item">We validated that we got good data</li>
           <li id="deleting_comments" class="list-group-item justify-content-between">Deleting Comments <span class="badge badge-default badge-pill" style="background-color: cadetblue" id="count_comments_deleted">0</span>  </li>
           <li id="deleting_submissions" class="list-group-item justify-content-between">Deleting Submissions
            <span class="badge badge-default badge-pill" style="background-color: cadetblue" id="count_submissions_deleted">0</span>
@@ -59,7 +59,7 @@
           $('#state_validate').addClass('list-group-item-success');
           $('#state_access').addClass('list-group-item-success');
         } else if (msg.state >= 20) {
-          $('#state_validate').addClass('list-group-item-success');
+          $('#state_access').addClass('list-group-item-success');
         }
       });
     }

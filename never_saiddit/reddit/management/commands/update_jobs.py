@@ -16,18 +16,6 @@ class Command(BaseCommand):
 
     help = 'Program which is continually run to update jobs.'
 
-    def authentication_exchange(self, job):
-        # Hmmm.... I think this should be a user step, to confirm
-        # the breaking
-        r = get_reddit_instance(refresh_token=job.refresh_token)
-
-        # Hmmm, not sure I even need this stage. Seems pretty
-        # wasteful.
-        logging.info("Step: Process Authentication")
-
-        job.state = Job.STATE_DELETING_COMMENTS
-        job.save()
-
     def delete_comments(self, job):
         r = get_reddit_instance(refresh_token=job.refresh_token)
 
@@ -85,7 +73,7 @@ class Command(BaseCommand):
         refresh_token = r.auth.authorize(job.code)
 
         job.refresh_token = refresh_token
-        job.state = Job.STATE_AUTHENTICATED
+        job.state = Job.STATE_DELETING_COMMENTS
         job.save()
 
     def should_shutdown_gracefully(self):
@@ -134,7 +122,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         STATE_FUNCS = {
             Job.STATE_RECEIVED_CODE_AND_STATE: self.exchange_code_for_token,
-            Job.STATE_AUTHENTICATED: self.authentication_exchange,
             Job.STATE_DELETING_COMMENTS: self.delete_comments,
             Job.STATE_DELETING_SUBMISSIONS: self.delete_submissions,
         }

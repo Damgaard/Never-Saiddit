@@ -53,8 +53,8 @@ class Job(models.Model):
     )
 
     STATE_AUTHORIZE = 10
-    STATE_RECEIVED_CODE_AND_STATE = 20
-    STATE_AUTHENTICATED = 30
+    STATE_AUTHENTICATED = 20
+    STATE_RECEIVED_CODE_AND_STATE = 30
     STATE_DELETING_COMMENTS = 40
     STATE_DELETING_SUBMISSIONS = 41
     STATE_FINISHED = 50
@@ -67,8 +67,8 @@ class Job(models.Model):
     # migrations will required.
     STATE_CHOICES = (
         (STATE_AUTHORIZE, _('Asked user to authorize')),
-        (STATE_RECEIVED_CODE_AND_STATE, _('Received code and state')),
         (STATE_AUTHENTICATED, _('Authenticated as user on Reddit')),
+        (STATE_RECEIVED_CODE_AND_STATE, _('Received code and state')),
         (STATE_DELETING_COMMENTS, _('Deleting comments')),
         (STATE_DELETING_SUBMISSIONS, _('Deleting submissions')),
         (STATE_FINISHED, _('Finished')),

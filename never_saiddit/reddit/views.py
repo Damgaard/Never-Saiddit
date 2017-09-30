@@ -70,6 +70,11 @@ class OAuthCallbackRedirectView(RedirectView):
         # Old / started task
         is_too_old = job.started + timezone.timedelta(minutes=90) < timezone.now()
         if is_too_old or job.state != Job.STATE_AUTHORIZE:
+            # TODO: Add some protection against a user accidentally
+            # visiting this page after deletion was started. Which
+            # could set the job unneccesarily in an invalid state.
+            # Perhaps this should just be redirect to some explanation page
+            # or the destruction page itself?
             job.state = Job.STATE_UNKNOWN_ERROR
             job.save()
             return reverse('error')
@@ -77,8 +82,8 @@ class OAuthCallbackRedirectView(RedirectView):
         if "code" not in self.request.GET:
             return reverse('error')
 
-        job.state = Job.STATE_RECEIVED_CODE_AND_STATE
+        job.state = Job.STATE_AUTHENTICATED
         job.code = self.request.GET['code']
         job.save()
 
-        return reverse('core:destruction', kwargs={'pk': str(job.identifier)})
+        return reverse('core:confirmation', kwargs={'pk': str(job.identifier)})

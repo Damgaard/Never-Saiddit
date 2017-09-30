@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bg-primary" style="background-color: cadetblue !important">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="section-heading text-white">Final decision</h2>
+        <hr class="light">
+        <p class="text-faded">If you go ahead, all comments and submissions
+created before you started the process will be deleted. Thats
+{{ object.started }} just so you know. The deletion process will not include
+any content you've made to private subreddits. Only public content.
+        </p>
+
+        <p class="text-faded">The process cannot be reverted.</p>
+
+        <h4 class="text-faded">Are you sure you want to delete your content on Reddit?</h4>
+        <br>
+      </div>
+    </div>
+    {% comment %}Below is some unneccesary direct style configuration, so that
+    the two buttons are next to each other. That is a bit of a hack that's
+    required due to an input field using a different box-model than the
+    regular button.
+    {% endcomment %}
+    <div class="row">
+      <div class="col-lg-6 mx-auto text-center">
+        <form action="" method="post">
+          {% csrf_token %}
+          {{ form }}
+          <input type="submit" value="Yes!" class="btn btn-danger btn-xl js-scroll-trigger" href="/" style="float: right; cursor:pointer;">
+        </form>
+      </div>
+      <div class="col-lg-6 mx-auto text-center">
+        <a class="btn btn-default btn-xl js-scroll-trigger" href="/" style="float: left;">No!</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
