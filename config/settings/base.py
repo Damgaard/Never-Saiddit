@@ -315,7 +315,7 @@ REDDIT_REDIRECT_URL= env('REDDIT_REDIRECT_URL', default=None)
 # ------------------------------------------------------------------------------
 
 handler = logging.StreamHandler()
-handler.setLevel(logging.DEBUG)
+handler.setLevel(logging.INFO)
 logger = logging.getLogger('prawcore')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logger.addHandler(handler)
