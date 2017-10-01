@@ -17,7 +17,8 @@
           <li id="deleting_comments" class="list-group-item justify-content-between">Deleting Comments <span class="badge badge-default badge-pill" style="background-color: cadetblue" id="count_comments_deleted">0</span>  </li>
           <li id="deleting_submissions" class="list-group-item justify-content-between">Deleting Submissions
            <span class="badge badge-default badge-pill" style="background-color: cadetblue" id="count_submissions_deleted">0</span>
-        </li>
+          </li>
+          <li id="state_done" class="list-group-item">Process completed</li>
         </ul>
         <br>
         <a class="btn btn-default btn-xl js-scroll-trigger" href="/">Take me to the homepage!</a>
@@ -46,6 +47,13 @@
         $('#count_submissions_deleted').text(msg.submissions_deleted);
 
         // TODO: Fix hardcoding of state here
+        // Especially as error states are higher than normal states
+        if (msg.state == 50) {
+          $('#state_done').addClass('list-group-item-success');
+          $('#deleting_submissions').addClass('list-group-item-success');
+          $('#deleting_comments').addClass('list-group-item-success');
+          $('#state_validate').addClass('list-group-item-success');
+          $('#state_access').addClass('list-group-item-success');
         if (msg.state >= 41) {
           $('#deleting_submissions').addClass('list-group-item-success');
           $('#deleting_comments').addClass('list-group-item-success');
