@@ -304,6 +304,9 @@ STATICFILES_FINDERS += ['compressor.finders.CompressorFinder']
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
 
+# Setting must be explictly set to True before content will be destroyed.
+CAN_DELETE_CONTENT = env('DJANGO_CAN_DELETE_CONTENT', default=False)
+
 # PRAW secrets
 # ------------------------------------------------------------------------------
 

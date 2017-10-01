@@ -67,4 +67,14 @@ The following details how to deploy this application.
 
 
 
+Enabling Deletion
+-----------------
 
+To protect you against you accidentally deleteting the wrong user
+accounts comments and submissions during development, there are a few defense
+structures built into the system.
+
+It will not delete content during development, ie. if DEBUG is True.
+The setting CAN_DELETE_CONTENT must be set to True, be default it is set to
+False. To override it and set it to True, you must set the environment variable
+DJANGO_CAN_DELETE_CONTENT to True as well.

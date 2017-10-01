@@ -25,3 +25,13 @@ def get_reddit_instance(refresh_token=None):
                        client_secret=settings.REDDIT_CLIENT_SECRET,
                        redirect_uri=settings.REDDIT_REDIRECT_URL,
                        refresh_token=refresh_token)
+
+
+def can_delete_content():
+    """Return whether content should actually be deleted or just faked.
+
+    This is used so that during development, content is not accidentally
+    deployed.
+
+    """
+    return settings.CAN_DELETE_CONTENT and not settings.DEBUG

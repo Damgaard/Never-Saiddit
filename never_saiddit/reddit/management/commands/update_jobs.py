@@ -7,7 +7,7 @@ from django.core.management.base import BaseCommand
 from django.conf import settings
 
 from never_saiddit.core.models import Job
-from never_saiddit.reddit.utils import get_reddit_instance
+from never_saiddit.reddit.utils import can_delete_content, get_reddit_instance
 
 REDDIT_QUERY_LIMIT = 10
 
@@ -33,7 +33,12 @@ class Command(BaseCommand):
         for comment in comments:
             if comment.created_utc < calendar.timegm(job.started.utctimetuple()):
                 job.comments_deleted = job.comments_deleted + 1
-                # TODO: Delete comment
+                if can_delete_content():
+                    # TODO: Delete comment
+                    pass
+                else:
+                    logging.info("Not deleting. As this has not been enabled.")
+
                 break
         else:
             logging.info("No comments within timeframe")
@@ -58,7 +63,12 @@ class Command(BaseCommand):
         for submission in submissions:
             if submission.created_utc < calendar.timegm(job.started.utctimetuple()):
                 job.submissions_deleted = job.submissions_deleted + 1
-                # TODO: Delete submission
+                if can_delete_content():
+                    # TODO: Delete submission
+                    pass
+                else:
+                    logging.info("Not deleting. As this has not been enabled.")
+
                 break
         else:
             logging.info("No submissions within timeframe")
