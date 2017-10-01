@@ -25,15 +25,15 @@ any content you've made to private subreddits. Only public content.
     regular button.
     {% endcomment %}
     <div class="row">
-      <div class="col-lg-6 mx-auto text-center">
+      <div class="col-xs-6 mx-auto text-center">
         <form action="" method="post">
           {% csrf_token %}
           {{ form }}
-          <input type="submit" value="Yes!" class="btn btn-danger btn-xl js-scroll-trigger" href="/" style="float: right; cursor:pointer;">
+          <input type="submit" value="Yes!" class="btn btn-danger btn-xl js-scroll-trigger" href="/" style="cursor:pointer;">
         </form>
       </div>
-      <div class="col-lg-6 mx-auto text-center">
-        <a class="btn btn-default btn-xl js-scroll-trigger" href="/" style="float: left;">No!</a>
+      <div class="col-xs-6 mx-auto text-center">
+        <a class="btn btn-default btn-xl js-scroll-trigger" href="/">No!</a>
       </div>
     </div>
   </div>
