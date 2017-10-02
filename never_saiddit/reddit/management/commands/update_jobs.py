@@ -34,8 +34,7 @@ class Command(BaseCommand):
             if comment.created_utc < calendar.timegm(job.started.utctimetuple()):
                 job.comments_deleted = job.comments_deleted + 1
                 if can_delete_content():
-                    # TODO: Delete comment
-                    pass
+                    comment.delete()
                 else:
                     logging.info("Not deleting. As this has not been enabled.")
 
@@ -64,8 +63,7 @@ class Command(BaseCommand):
             if submission.created_utc < calendar.timegm(job.started.utctimetuple()):
                 job.submissions_deleted = job.submissions_deleted + 1
                 if can_delete_content():
-                    # TODO: Delete submission
-                    pass
+                    submission.delete()
                 else:
                     logging.info("Not deleting. As this has not been enabled.")
 
