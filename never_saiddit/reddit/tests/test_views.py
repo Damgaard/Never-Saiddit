@@ -47,6 +47,26 @@ class TestConfirmationView(TestCase):
         reloaded_job = Job.objects.get(pk=self.job.pk)
         self.assertEqual(reloaded_job.state, Job.STATE_RECEIVED_CODE_AND_STATE)
 
+
+class TestDestructionView(TestCase):
+
+    def setUp(self):
+        self.job = Job.objects.create(state=Job.STATE_AUTHENTICATED)
+        self.data = {'has_accepted': True}
+
+    def test_can_be_found(self):
+        self.get('core:destruction', pk=self.job.identifier)
+        self.response_200()
+
+    def test_unknown_id(self):
+        self.get('core:destruction', pk='1888fcf3-62e3-4d0e-ad44-d78507051dd8')
+        self.response_404()
+
+    def test_non_uuid4_format(self):
+        self.get('core:destruction', pk='-23jdsjklgkl3jflie')
+        self.response_404()
+
+
 class TestOAuthCallbackRedirectView(TestCase):
 
     def setUp(self):

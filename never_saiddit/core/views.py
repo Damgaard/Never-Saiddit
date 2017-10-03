@@ -63,9 +63,13 @@ class DestructionView(DetailView):
     model = Job
     template_name = 'pages/destruction.html'
 
-    # def get_object(queryset=None):
-    # TODO: We probably need to override this, so in case the pk is an invalid
-    # hex we throw a 404 and not a 500
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            self.job = get_object_or_404(Job, pk=kwargs['pk'])
+        except ValueError:
+            raise Http404('Bad/missing formatted identifier')
+
+        return super().dispatch(request, *args, **kwargs)
 
     # TODO: Add redirect if job is in either an error state or it has
     # not yet begun
