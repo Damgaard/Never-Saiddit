@@ -27,7 +27,7 @@ class AuthorizeRedirectView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         r = get_reddit_instance()
         job = Job.objects.create()
-        return r.auth.url(['history', 'identity', 'read'], job.identifier, "permanent")
+        return r.auth.url(['history', 'identity', 'edit'], job.identifier, "permanent")
 
 
 class OAuthCallbackRedirectView(RedirectView):
