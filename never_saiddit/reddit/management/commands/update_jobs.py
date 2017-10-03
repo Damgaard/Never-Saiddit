@@ -1,7 +1,7 @@
 import calendar
+import logging
 import os
 import time
-import logging
 
 from django.core.management.base import BaseCommand
 from django.conf import settings
@@ -10,6 +10,8 @@ from never_saiddit.core.models import Job
 from never_saiddit.reddit.utils import can_delete_content, get_reddit_instance
 
 REDDIT_QUERY_LIMIT = 10
+
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -28,7 +30,7 @@ class Command(BaseCommand):
         # TODO: Something needs to be done if we intend to anonymize
         # content first in the way that we select first comment to
         # alter
-        logging.info("Step: Processing comments")
+        logger.info("Step: Processing comments")
 
         for comment in comments:
             if comment.created_utc < calendar.timegm(job.started.utctimetuple()):
@@ -36,11 +38,11 @@ class Command(BaseCommand):
                 if can_delete_content():
                     comment.delete()
                 else:
-                    logging.info("Not deleting. As this has not been enabled.")
+                    logger.info("Not deleting. As this has not been enabled.")
 
                 break
         else:
-            logging.info("No comments within timeframe")
+            logger.info("No comments within timeframe")
             job.state = Job.STATE_DELETING_SUBMISSIONS
 
         job.save()
@@ -57,7 +59,7 @@ class Command(BaseCommand):
         # TODO: Something needs to be done if we intend to anonymize
         # content first in the way that we select first submission
         # alter
-        logging.info("Step: Processing submissions")
+        logger.info("Step: Processing submissions")
 
         for submission in submissions:
             if submission.created_utc < calendar.timegm(job.started.utctimetuple()):
@@ -65,11 +67,11 @@ class Command(BaseCommand):
                 if can_delete_content():
                     submission.delete()
                 else:
-                    logging.info("Not deleting. As this has not been enabled.")
+                    logger.info("Not deleting. As this has not been enabled.")
 
                 break
         else:
-            logging.info("No submissions within timeframe")
+            logger.info("No submissions within timeframe")
             job.state = Job.STATE_FINISHED
 
         job.save()
@@ -77,7 +79,7 @@ class Command(BaseCommand):
     def exchange_code_for_token(self, job):
         r = get_reddit_instance(refresh_token=job.refresh_token)
 
-        logging.info("Step: Process code")
+        logger.info("Step: Process code")
         refresh_token = r.auth.authorize(job.code)
 
         job.refresh_token = refresh_token
@@ -140,7 +142,7 @@ class Command(BaseCommand):
             if job is None:
                 step_func = self.handle_no_job
             else:
-                logging.info("Looking at job: {}".format(job.identifier))
+                logger.info("Looking at job: {}".format(job.identifier))
                 step_func = STATE_FUNCS.get(job.state, self.handle_unknown_state)
 
             try:

@@ -8,7 +8,7 @@ from django.views.generic.base import RedirectView
 from ..core.models import Job
 from never_saiddit.reddit.utils import get_reddit_instance
 
-
+logger = logging.getLogger(__name__)
 
 
 class AuthorizeRedirectView(RedirectView):
@@ -56,9 +56,9 @@ class OAuthCallbackRedirectView(RedirectView):
             # Given state is not a UUID hex
             return reverse('error')
 
+        job = jobs[0]
         logger.info("Received callback for {}".format(job.identifier))
 
-        job = jobs[0]
         if "error" in self.request.GET:
             # Most common case, user denied our authorization. Give
             # them a specialized error page
