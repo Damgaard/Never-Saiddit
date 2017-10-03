@@ -35,7 +35,7 @@
 
   // Simply way of testing whether the task in done, in which
   // case there is no need to poll for an update.
-  if (!$('#deleting_submissions').hasClass('list-group-item-success')) {
+  if (!$('#state_done').hasClass('list-group-item-success')) {
     $.ajax({
       method: "GET",
       url: "/get_job_status/",
