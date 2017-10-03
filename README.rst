@@ -1,74 +1,31 @@
-Duster
-======
+Never-Saiddit
+=============
 
-Dust your reddit account
+Reclaim ownership of your content on Reddit
 
-Basic Commands
---------------
+Purpose
+-------
 
-Setting Up Your Users
-^^^^^^^^^^^^^^^^^^^^^
+This project was designed to provide an easy, non-technical way of deleting
+your content on Reddit.
 
-* To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+A number of tools already exists that allow you to delete your content, but
+they generally require technical knowhow, are limited to the last 1000
+items, closed source or un-maintained.
 
-* To create an **superuser account**, use this command::
+With this project I aim to deliver that service, in the easiest way
+requirering the least possible technical knowledge and with the highest
+guarantees for privacy that can be provided. This project utilizes the
+API of Reddit and can thus narrow down the scope of permissions to just
+what is required and nothing more.
 
-    $ python manage.py createsuperuser
+Setup
+-----
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
-
-Test coverage
-^^^^^^^^^^^^^
-
-To run the tests, check your test coverage, and generate an HTML coverage report::
-
-    $ coverage run manage.py test
-    $ coverage html
-    $ open htmlcov/index.html
-
-Running tests with py.test
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-::
-
-  $ py.test
-
-Live reloading and Sass CSS compilation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Moved to `Live reloading and SASS compilation`_.
-
-.. _`Live reloading and SASS compilation`: http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html
-
-
-
-Celery
-^^^^^^
-
-This app comes with Celery.
-
-To run a celery worker:
-
-.. code-block:: bash
-
-    cd duster
-    celery -A duster.taskapp worker -l info
-
-Please note: For Celery's import magic to work, it is important *where* the celery commands are run. If you are in the same folder with *manage.py*, you should be right.
-
-
-
-
-
-Deployment
-----------
-
-The following details how to deploy this application.
-
-
+If you wish, the project can be run locally.
 
 Enabling Deletion
------------------
+^^^^^^^^^^^^^^^^^
 
 To protect you against you accidentally deleteting the wrong user
 accounts comments and submissions during development, there are a few defense
@@ -78,3 +35,23 @@ It will not delete content during development, ie. if DEBUG is True.
 The setting CAN_DELETE_CONTENT must be set to True, be default it is set to
 False. To override it and set it to True, you must set the environment variable
 DJANGO_CAN_DELETE_CONTENT to True as well.
+
+Testing
+-------
+
+Run tests with the excellent py.test library
+
+::
+
+  $ py.test
+
+To test coverage. A convenience method has been created, if no test errors
+were encountered a HTML report will be generated as well as shown.::
+
+    $ ./update_coverage
+    $ open htmlcov/index.html
+
+Deployment
+----------
+
+Deployment is handled seperately, and is not part of this project.
