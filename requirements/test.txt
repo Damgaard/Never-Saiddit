@@ -11,7 +11,7 @@ awesome-slugify==1.6.5
 billiard==3.3.0.23        # via celery
 celery==3.1.25
 certifi==2017.7.27.1      # via requests
-cffi==1.10.0              # via argon2-cffi
+cffi==1.11.1              # via argon2-cffi
 chardet==3.0.4            # via requests
 coverage==4.4.1
 defusedxml==0.5.0         # via python3-openid
@@ -26,20 +26,18 @@ django-model-utils==3.0.0
 django-redis==4.8.0
 django-robots==3.0
 django-test-plus==1.0.18
-django==1.10.7
-dnspython==1.15.0         # via email-validator
-email-validator==1.0.2    # via faker
+django==1.10.8
 factory-boy==2.9.2
-faker==0.8.0              # via factory-boy
+faker==0.8.4              # via factory-boy
 flake8==3.4.1
-idna==2.6                 # via email-validator, requests
+idna==2.6                 # via requests
 kombu==3.0.37             # via celery
 mccabe==0.6.1             # via flake8
 mock==2.0.0
-oauthlib==2.0.2           # via requests-oauthlib
+oauthlib==2.0.4           # via requests-oauthlib
 olefile==0.44             # via pillow
 pbr==3.1.1                # via mock
-pillow==4.2.1
+pillow==4.3.0
 praw==5.1.0
 prawcore==0.12.0          # via praw
 psycopg2==2.7.3.1
@@ -49,19 +47,18 @@ pycparser==2.18           # via cffi
 pyflakes==1.5.0           # via flake8
 pytest-django==3.1.2
 pytest-sugar==0.9.0
-pytest==3.2.1             # via pytest-django, pytest-sugar
+pytest==3.2.3             # via pytest-django, pytest-sugar
 python-dateutil==2.6.1    # via faker
 python3-openid==3.1.0     # via django-allauth
 pytz==2017.2
 rcssmin==1.0.6
 redis==2.10.6
-regex==2017.7.28          # via awesome-slugify
+regex==2017.9.23          # via awesome-slugify
 requests-oauthlib==0.8.0  # via django-allauth
 requests==2.18.4          # via django-allauth, prawcore, requests-oauthlib, update-checker
 rjsmin==1.0.12            # via django-compressor
-six==1.10.0               # via argon2-cffi, django-coverage-plugin, django-environ, faker, mock, python-dateutil
+six==1.11.0               # via argon2-cffi, django-coverage-plugin, django-environ, faker, mock, python-dateutil
 termcolor==1.1.0          # via pytest-sugar
-ukpostcodeparser==1.1.1   # via faker
 unidecode==0.4.21         # via awesome-slugify
 update-checker==0.16      # via praw
 urllib3==1.22             # via requests

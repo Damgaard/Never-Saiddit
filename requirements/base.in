@@ -5,7 +5,7 @@
 wheel==0.29.0
 
 # Bleeding edge Django
-django==1.10.7 # pyup: >=1.10,<1.11
+django==1.10.8 # pyup: >=1.10,<1.11
 
 # Configuration
 django-environ==0.4.4
@@ -18,7 +18,7 @@ django-crispy-forms==1.6.1
 django-model-utils==3.0.0
 
 # Images
-Pillow==4.2.1
+Pillow==4.3.0
 
 # Password storage
 argon2-cffi==16.3.0
