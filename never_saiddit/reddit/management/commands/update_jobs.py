@@ -23,13 +23,6 @@ class Command(BaseCommand):
 
         comments = r.user.me().comments.new(limit=REDDIT_QUERY_LIMIT)
 
-        # Assumption. Users are not going to create a lot of content
-        # after starting the deletion process, therefore we can
-        # proceed and just process the first task after started after.
-
-        # TODO: Something needs to be done if we intend to anonymize
-        # content first in the way that we select first comment to
-        # alter
         logger.info("Step: Processing comments")
 
         for comment in comments:
@@ -52,13 +45,6 @@ class Command(BaseCommand):
 
         submissions = r.user.me().submissions.new(limit=REDDIT_QUERY_LIMIT)
 
-        # Assumption. Users are not going to create a lot of content
-        # after starting the deletion process, therefore we can
-        # proceed and just process the first task after started after.
-
-        # TODO: Something needs to be done if we intend to anonymize
-        # content first in the way that we select first submission
-        # alter
         logger.info("Step: Processing submissions")
 
         for submission in submissions:
