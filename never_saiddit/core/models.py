@@ -81,3 +81,6 @@ class Job(models.Model):
         default=STATE_CHOICES[0][0],
         help_text=_(u"How far are we along in the process.")
     )
+
+    class Meta:
+        ordering = ['started', ]
